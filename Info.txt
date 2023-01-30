@@ -39,4 +39,4 @@ It is worth considering whether and how the threads of lab technicians should sy
 To simplify the construction of the graphical interface a bit, we can assume that there is a limit to the maximum number of threads that can be run.
 This will allow you to plan the size of the interface. Please also consider the possibility of changing the speed of threads in the applications you build.
 
-Final Grade: 3.0 - no synchronization, not all assistants are threads
+Grade: 3.0 - no synchronization, not all assistants are threads
