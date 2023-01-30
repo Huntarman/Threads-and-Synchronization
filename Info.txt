@@ -1,0 +1,42 @@
+Write an application that synchronizes multiple threads. The application should allow these threads to run and observe their states. The application should be parameterized (explained later).
+We assume that the application will act as a simulator of a laboratory where some organisms are grown.
+Laboratory technicians who move along the laboratory shelves are to work in this laboratory. 
+Their task is to feed the cultured organisms placed in containers on these shelves. The lab is quite cramped. Laboratory technicians moving along the shelves cannot pass each other. 
+To somehow control the traffic, the following rules have been introduced:
+
+     -laboratory technicians move along the shelves back and forth,
+     -laboratory technicians cannot be more than shelves,
+     -if a lab technician at some point will not be able to continue moving in the chosen direction
+	(because there is another lab technician in the place he wanted to go), then he changes the direction of movement 
+	(of course, "direction" here means "right" and "left" ”, and not a feature of a vector known from physics)
+     -laboratory technicians have access to a common distributor from anywhere (they can reach the distributor at any time, but they must do it separately)
+
+Laborers have their own food containers of the same capacity (e.g. 50). They fill them from one shared dispenser (where the food never ends).
+When feeding, they take the right amount of food from their own reservoirs and inject it into the containers with the organisms being fed. 
+Each laboratory technician at a given moment can only feed the organism in the container on the shelf in front of which he is currently standing.
+Containers with organisms have sensors, so that you can read the status of the food and organism in them. We assume that the food level should not exceed level 10. 
+Food should only be replenished if the food level is lower than 5. If an organism is left without food for a long time, that organism dies.
+The state of an organism can be marked with values from 0 to 5. A value of 0 means that the organism is dead, and a value of 5 means that it is fully nourished.
+Intermediate values are intended to indicate the state of the organism when there is no food in the container - the longer there is no food in the container, the lower the state value will be.
+Probably the simplest way to visualize what is happening in the laboratory is to use text labels as shown
+in the diagram below (the distributor column displays information about which lab technician is currently filling his reservoir;
+the assistant column represents lab technicians with reservoirs; the nurishment column represents the state of food in containers;
+the stamina column represents the state of the organisms).
+
+distributor assistant nourishment stamina
+                |a_40| | 10 | | 5 |
+                |____| | 08 | | 5 |
+	| b|      |____| | 05 | | 5 |
+                |c_50| | 10 | | 5 |
+                |d_00| | 00 | | 3 |
+                |____| | 00 | | 0 |
+
+As you can see, the laboratory technicians were assigned letters of the alphabet to distinguish them
+(one may wonder whether the laboratory technician filling the tank must disappear from the assistant column or can stay in it). You can also come up with another way of visualization.
+Every lab technician should be a thread. Every organism should be a thread. There should be mutual exclusion between the threads
+(in particular - lab technicians should exclude each other when trying to access the dispenser and when trying to move along the shelves).
+It is worth considering whether and how the threads of lab technicians should synchronize with threads of organisms (when trying to read the state?).
+To simplify the construction of the graphical interface a bit, we can assume that there is a limit to the maximum number of threads that can be run.
+This will allow you to plan the size of the interface. Please also consider the possibility of changing the speed of threads in the applications you build.
+
+Final Grade: 3.0 - no synchronization, not all assistants are threads
